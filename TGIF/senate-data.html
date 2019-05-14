@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>TGIF Senators</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1>
+				<span class="glyphicon glyphicon-search"></span> Transparent Government in Fact
+				<small class="pull-right">
+					<span class="glyphicon glyphicon-envelope"></span> 
+					<a href="mailto:info@tgif.net">info@tgif.net</a>
+				</small>
+			</h1>
+		</header>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="home.html">Home</a>
+					</li>
+					<li class="dropdown active">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Congress 113</a>
+						<ul class="dropdown-menu">
+							<li><a href="house-data.html">House</a></li>
+							<li class="active"><a href="#">Senate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div>
+			<h2>Senators</h2>
+			<p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
+			<form>
+				Filter by Party:
+				<label class="checkbox-inline"><input type="checkbox" name="party" value="R">Republican</label>
+				<label class="checkbox-inline"><input type="checkbox" name="party" value="D">Democrat</label>
+				<label class="checkbox-inline"><input type="checkbox" name="party" value="I">Independent</label>
+			</form>
+			<table class="table" id="senate-data">
+				<thead>	
+					<tr>
+						<th>Senator</th>
+						<th>Party</th>
+						<th>State</th>
+						<th>Years in Office</th>
+						<th>% Votes w/ Party</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<footer class="well text-center">© 2016 TGIF | All Rights Reserved</footer>
+	</div>
+	<script src="pro-congress-113-senate.js"></script>
+	<script>
+		var members = data.results[0].members;
+		var stringToAppend = "";
+
+		members.forEach(function(member) {
+			stringToAppend += 
+			'<tr><td><a href="' + member.url + '" target="_blank">' +
+			member.last_name + ' ' +
+			member.first_name + ' ' + 
+			(member.middle_name || '') + '</a></td><td>' + 
+			member.party + '</td><td>' + 
+			member.state + '</td><td>' + 
+			member.seniority + '</td><td>' +
+			member.votes_with_party_pct + '%</td></tr>';
+		});
+		
+		document.querySelector('tbody').innerHTML = stringToAppend;
+
+		document.querySelector('form').onchange = function(evt) {
+			var checkedBoxes = document.querySelectorAll('input[name="party"]:checked');
+			// TODO filter table data by party
+			console.log(checkedBoxes);
+		};
+	</script>
+</body>
+</html>

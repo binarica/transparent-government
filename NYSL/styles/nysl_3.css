@@ -1,0 +1,162 @@
+body {
+	font-family: 'Comic Sans MS', sans-serif;
+}
+
+figure {
+	margin: 0;
+}
+
+figcaption {
+	left: 200px;
+	position: absolute;
+	top: 100px;
+}
+
+figcaption h1 {
+	color: white;
+	text-shadow: 3px 3px 0 #5D734D;
+	text-transform: uppercase;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #2C5273;
+}
+
+nav ul li {
+	float: left;
+}
+
+nav a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 16px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+nav a.active {
+	background-color: #4B72A6;
+}
+
+header h2 {
+	margin: 20px;
+	text-align: center;
+	text-shadow: 2px 2px 0 #bcbcbc;
+}
+
+article {
+	background-color: #C9D991;
+	border: 2px dashed black;
+	left: 22%;
+	margin-bottom: 20px;
+	padding: 20px;
+	position: absolute;
+	width: 55%;
+}
+
+/* Utilizado en párrafos con indentación */
+.indent {
+	margin: -20px 0 20px 20px;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.events-heading {
+	font-style: italic;
+}
+
+.rules-heading {
+	text-align: center;
+}
+
+ul.circle {
+	list-style-type: circle;
+}
+
+ul.square {
+	list-style-type: square;
+}
+
+ol.lower-alpha {
+	list-style-type: lower-alpha;
+}
+
+/* Ajustar la imágen al tamaño del dispositivo */
+#cover {
+	height: 250px;
+	width: 100%;
+	object-fit: cover;
+	object-position: 0 15%;
+}
+
+#logo {
+	border: 2px solid black;
+	border-radius: 60px;
+	height: 120px;
+	left: 60px;
+	position: absolute;
+	top: 80px;
+}
+
+table {
+	border-spacing: 0 1px;
+	margin-bottom: 8px;
+	width: 100%;
+}
+
+table tr th {
+	text-align: left;
+}
+
+table.games tr th {
+	text-decoration: underline;
+}
+
+table.games tr th:first-child {
+	text-align: center;
+}
+
+table tr td {
+	width: 25%;
+}
+
+table tr td[rowspan] {
+	text-align: center;
+	vertical-align: top;
+}
+
+fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.player-info label {
+	margin-bottom: 20px;
+}
+
+/* Agrandar el tamaño y los espacios de inputs */
+.player-info input {
+	padding: 5px;
+	margin-top: 5px;
+}
+
+/* Darle al botón de submit un aspecto redondeado */
+input.button {
+	background-color: #2C5273;
+	border: 0;
+	border-radius: 10px;
+	color: #fff;
+	cursor: pointer;
+	display:block;
+	font-weight: bold;
+	margin: 0px auto;
+	padding: 8px 16px;
+}
