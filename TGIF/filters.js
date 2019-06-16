@@ -1,46 +1,45 @@
-var members = data.results[0].members;
+const apiKey = 'aNBCUhvCkSJWLGMimGFor0Jmw49DCDtPU7Hw6Esa';
 
-var partyFilter = document.querySelector('#party-filter');
-var stateFilter = document.querySelector('#state-filter');
+const app = new Vue({
+	el: '#app',
+	computed: {
+		isLoading: function () {
+			return !this.members || !this.members.length;
+		}
+	},
+	data: {
+		members: [],
+		filteredMembers: [],
+		partyFilter: [],
+		stateFilter: ''
+	},
+	methods: {
+		getfilteredMembers: function () {
+			const selectedParties = this.partyFilter;
+			const selectedState = this.stateFilter;
 
-var selectedParties = [];
-var selectedState = '';
+			this.filteredMembers = this.members.filter(member => (
+				selectedParties.length === 0 || selectedParties.indexOf(member.party) !== -1)).filter(member => (
+				selectedState === '' || selectedState === member.state));
+		}
+	},
+	beforeMount() {
+		const init = {
+			headers: {
+				'X-API-Key': apiKey
+			}
+		};
 
-function updateUI() {
-
-    let filteredMembers = members.filter(member => (
-        selectedParties.length === 0 || selectedParties.indexOf(member.party) !== -1)
-    ).filter(member => (
-        selectedState === '' || selectedState === member.state)
-    );
-
-    let tbody = document.querySelector('tbody');
-    let stringToAppend = "";
-
-    filteredMembers.forEach(function (member) {
-        stringToAppend +=
-        '<tr><td><a href="' + member.url + '" target="_blank">' +
-        member.last_name + ' ' +
-        member.first_name + ' ' +
-        (member.middle_name || '') + '</a></td><td>' +
-        member.party + '</td><td>' +
-        member.state + '</td><td>' +
-        member.seniority + '</td><td>' +
-        member.votes_with_party_pct + '%</td></tr>';
-    });
-
-    tbody.innerHTML = stringToAppend;
-};
-
-updateUI();
-
-partyFilter.onchange = function() {
-    let checkedBoxes = this.querySelectorAll('input[name="party"]:checked');
-    selectedParties = Array.from(checkedBoxes).map(e => e.value);
-    updateUI();
-};
-
-stateFilter.onchange = function() {
-    selectedState = this.value;
-    updateUI();
-};
+		fetch(remoteUrl, init).then((response) => {
+			if (response.ok) {
+				return response.json();
+			}
+			throw new Error(response.statusText);
+		}).then((json) => {
+			this.members = json.results[0].members;
+			this.getfilteredMembers();
+		}).catch((error) => {
+			console.log("Request failed: " + error.message);
+		});
+	}
+});

@@ -2,12 +2,18 @@
 <html lang="en">
 
 <head>
+	<meta charset="UTF-8">
 	<title>TGIF Senators</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+	<link rel="stylesheet" href="styles/tgif.css">
 </head>
 
 <body>
-	<div class="container">
+	<div class="container" id="app">
+		<div id="overlay" v-show="isLoading">
+			<div class="loader"></div>
+		</div>
 		<header>
 			<h1>
 				<img src="images/tgif-logo.jpg" alt="TGIF Logo" width="70"> Transparent Government in Fact
@@ -55,21 +61,24 @@
 				consenting to treaties as a precondition to their ratification and consenting to or confirming
 				appointments of Cabinet secretaries, federal judges, other federal executive officials, military
 				officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of
-			federal officials impeached by the House.</p>
+				federal officials impeached by the House.</p>
 		</div>
 		<div class="row">
 			<form class="form-inline">
 				<div class="col-lg-8">
 					<fieldset id="party-filter">
-						Filter by Party: 
-						<label class="checkbox-inline"><input type="checkbox" name="party" value="R">Republican</label>
-						<label class="checkbox-inline"><input type="checkbox" name="party" value="D">Democrat</label>
-						<label class="checkbox-inline"><input type="checkbox" name="party" value="I">Independent</label>
+						Filter by Party:&nbsp;
+						<label class="checkbox-inline"><input type="checkbox" name="party" value="R"
+								v-model="partyFilter" @change="getfilteredMembers">Republican</label>
+						<label class="checkbox-inline"><input type="checkbox" name="party" value="D"
+								v-model="partyFilter" @change="getfilteredMembers">Democrat</label>
+						<label class="checkbox-inline"><input type="checkbox" name="party" value="I"
+								v-model="partyFilter" @change="getfilteredMembers">Independent</label>
 					</fieldset>
 				</div>
 				<div class="col-lg-4 text-right">
-					Filter by State:
-					<select class="form-control" id="state-filter">
+					Filter by State:&nbsp;
+					<select class="form-control" id="state-filter" v-model="stateFilter" @change="getfilteredMembers">
 						<option value="">All</option>
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
@@ -136,13 +145,27 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr v-for="(value, key) in filteredMembers">
+					<td>
+						<a :href="value.url" target="_blank">
+							{{value.last_name}} {{value.first_name}} {{value.middle_name}}
+						</a>
+					</td>
+					<td>{{value.party}}</td>
+					<td>{{value.state}}</td>
+					<td>{{value.seniority}}</td>
+					<td>{{value.votes_with_party_pct}}&percnt;</td>
+				</tr>
 			</tbody>
 		</table>
-		<footer class="well text-center">© 2016 TGIF | All Rights Reserved</footer>
+		<footer class="well text-center">&copy; 2016 TGIF | All Rights Reserved</footer>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="pro-congress-113-senate.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script>
+		const remoteUrl = "https://api.propublica.org/congress/v1/113/senate/members.json";
+	</script>
 	<script src="filters.js"></script>
 </body>
 
