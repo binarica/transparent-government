@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial');
+
 body {
-	font-family: 'Comic Sans MS', sans-serif;
+	font-family: 'Questrial', sans-serif;
 }
 
 figure {
@@ -52,10 +54,8 @@ header h2 {
 article {
 	background-color: #C9D991;
 	border: 2px dashed black;
-	left: 22%;
-	margin-bottom: 20px;
+	margin: 20px auto;
 	padding: 20px;
-	position: absolute;
 	width: 55%;
 }
 
