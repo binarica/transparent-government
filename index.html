@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TGIF Home</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Raleway"
+    />
+    <link rel="stylesheet" href="styles/tgif.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>
+        <img src="images/tgif-logo.jpg" alt="TGIF Logo" width="70" />
+        Transparent Government in Fact
+        <small class="pull-right"
+          ><span class="glyphicon glyphicon-envelope"></span>
+          <a href="mailto:info@tgif.net">info@tgif.net</a>
+        </small>
+      </h1>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <a href="#!/">Home</a>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                >Congress 113</a
+              >
+              <ul class="dropdown-menu">
+                <li><a href="#!/house-data">House</a></li>
+                <li><a href="senate-data.html">Senate</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                >Attendance</a
+              >
+              <ul class="dropdown-menu">
+                <li><a href="house-attendance.html">House</a></li>
+                <li><a href="senate-attendance.html">Senate</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                >Party Loyalty</a
+              >
+              <ul class="dropdown-menu">
+                <li><a href="house-party-loyalty.html">House</a></li>
+                <li><a href="senate-party-loyalty.html">Senate</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div id="app"></div>
+      <footer class="well text-center">
+        &copy; 2016 TGIF | All Rights Reserved
+      </footer>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="./home.js"></script>
+    <script>
+      //const Home = document.createElement("home").outerHTML;
+      //console.log(Home);
+
+      const routes = {
+        "#!/home": "home",
+        "#!/house-data": "house-data",
+      };
+
+      new Vue({
+        el: "#app",
+        data: {
+          currentRoute: window.location.hash,
+        },
+        computed: {
+          ViewComponent() {
+            console.log(this.currentRoute);
+            return {
+              template: document.createElement(routes[this.currentRoute])
+                .outerHTML,
+            };
+          },
+        },
+        render(h) {
+          return h(this.ViewComponent);
+        },
+      });
+
+      document.querySelector('[data-toggle="collapse"]').onclick = (e) => {
+        const collapsible = document.querySelector(
+          e.target.getAttribute("href")
+        );
+        e.target.innerText = `Read ${
+          collapsible.classList.contains("in") ? "More" : "Less"
+        }`;
+      };
+    </script>
+  </body>
+</html>
